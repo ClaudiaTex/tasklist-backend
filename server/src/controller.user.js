@@ -100,16 +100,14 @@ const createTask = (req,res) => { //crear nuevo objeto(task) anidado dentro del 
     const userIndex = usersData.users.findIndex(user => user.email === email)
     if(userIndex >= 0){
         if(newTask){
-            usersData.users.push({
-                tasks: {
-                    taskID,
-                    title,
-                    description,
-                    flag,
-                    creationDate,
-                    updateDate
-                }
-            })
+            usersData.users[userIndex].tasks = {
+                taskID,
+                title,
+                description,
+                flag,
+                creationDate,
+                updateDate
+            }
             model.saveUser(usersData)
             response4 = 'Tarea añadida.'
         }else {
