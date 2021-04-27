@@ -24,6 +24,8 @@ app.post('/createUser', userController.createUser);
 app.get('/user', userController.readUser);
 app.put('/updateUser', userController.updateUser); // verificacion usuario en /user
 
+app.post('/newTask', userController.createTask);
+
 
 // /admin
 app.post('/createAdmin', adminController.createAdmin);

@@ -5,7 +5,7 @@ const usersData = require('./users.json')
 const hello = (req,res) => {
     res.send('hello world!')
 }
-const tasks = [];
+
 
 //CRUD USER
 
@@ -13,6 +13,7 @@ const createUser = (req,res) => {
     const email = req.body.email
     const name = req.body.name
     const password = req.body.password
+    const tasks = {};
     let response;
     if(model.validEmail(email) && model.validPassword(password) && !model.existEmail(email)) {
         usersData.users.push({
@@ -50,10 +51,15 @@ const updateUser = (req,res) => { //si el email es incorrecto al crearlo no se p
     const email = req.body.email
     const newName = req.body.name
     const newPassword = req.body.password
+    const newTask = req.body.tasks
     const userIndex = usersData.users.findIndex(user => user.email === email)
     let response3;
     if(userIndex >= 0){
-        if(newName && newPassword && model.validPassword(newPassword)){
+        if(newTask){ //funciona pero no es lo suyo
+            usersData.users[userIndex].tasks = newTask
+            model.saveUser(usersData)
+            response3 = 'Tarea añadida'
+        }else if(newName && newPassword && model.validPassword(newPassword)){
             usersData.users[userIndex].password = newPassword
             usersData.users[userIndex].name = newName
             model.saveUser(usersData)
@@ -83,22 +89,38 @@ const updateUser = (req,res) => { //si el email es incorrecto al crearlo no se p
 //CRUD TASK USER
 
 const createTask = (req,res) => { //crear nuevo objeto(task) anidado dentro del user
+    const email = req.body.email
+    const newTask = req.body.tasks
+    const taskID = req.body.taskID
     const title = req.body.title
     const description = req.body.description
     const flag = req.body.flag //is_public o no
     const creationDate = new Date().toISOString() //otra opcion new Date().toString()
     const updateDate = new Date().toISOString()
+    const userIndex = usersData.users.findIndex(user => user.email === email)
+    if(userIndex >= 0){
+        if(newTask){
+            usersData.users.push({
+                tasks: {
+                    taskID,
+                    title,
+                    description,
+                    flag,
+                    creationDate,
+                    updateDate
+                }
+            })
+            model.saveUser(usersData)
+            response4 = 'Tarea añadida.'
+        }else {
+            response4 = 'Tarea no creada.'
+        }
 
-    usersData.users.user.tasks.push({
-        taskID,
-        title,
-        description,
-        flag,
-        creationDate,
-        updateDate
 
-    })
-
+    }else{
+        response4 = 'Usuario no encontrado.'
+    }
+    res.send(response4)
 }
 
 

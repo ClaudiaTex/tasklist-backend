@@ -61,18 +61,19 @@ const getAllAdmin = adminData => {
     return admins
 }
 
+//Create taskID
 
-for (const user of usersData) { 
-    taskIDCounter = 0;
-    for (const task in user.tasks) {
-        if (user.tasks.task){
-            taskIDCounter ++;
-        }else {
-            taskIDCounter
-        }
-    }
-    task.taskID = taskIDCounter;
-}
+// for (const user of usersData.users) { 
+//     taskIDCounter = 0;
+//     for (const task in user.tasks) {
+//         if (user.tasks.task){
+//             taskIDCounter ++;
+//         }else {
+//             taskIDCounter
+//         }
+//     }
+//     tasks.taskID = taskIDCounter;
+// }
 
 
 module.exports = {

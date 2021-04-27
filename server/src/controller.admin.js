@@ -108,9 +108,6 @@ const deleteUserByAdmin = (req,res) => { //borrado logico (borrar totalmente el 
     res.send(response8)
 }
 
-const deleteAllUserTask = (req,res) => { //no haria falta: las task deberian estar dentro del user
-    //TODO
-}
 
 
 module.exports = {
@@ -120,6 +117,5 @@ module.exports = {
     readAllAdmin,
     updateAdmin,
     deleteAdmin,
-    deleteUserByAdmin,
-    deleteAllUserTask
+    deleteUserByAdmin
 }
